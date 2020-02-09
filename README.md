@@ -1,1 +1,1 @@
-# prank-sinatra-fleddit
+# sinatra-fleddit
