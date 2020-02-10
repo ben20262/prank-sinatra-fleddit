@@ -11,12 +11,24 @@ class PagesController < AppController
         elsif !current_user.pages.include?(@page)
             redirect "/pages/#{params[:]}/join"
         end
-        erb :
+        erb :'/pages/show_page'
     end
 
     get '/pages/:id/join' do
-        
+        if !logged_in?
+            redirect '/login'
+        elsif current_user.pages.include?(@page)
+            redirect "/pages/#{params[:]}"
+        end
+        @page = Page.find(params[:id])
+        erb :'/pages/join'
     end
+
+    post '/pages/:id' do
+        UserPage.create(user_id: current_user.id, page_id: params[:id])
+        redirect "/pages/#{params[:id]}"
+    end
+        
 
     get '/pages/new' do
         if !logged_in?
