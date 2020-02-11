@@ -1,0 +1,6 @@
+<h2>Welcome <%= @user.username %>!</h2>
+<% @user.posts.each do |post| %>
+    <h4><%= post.title %></h4>
+    <p><%= post.content %></p>
+    <br>
+<% end %>

@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+    <head>
+    <title>Fleddit- Fun for all ages!</title>
+    </head>
+    <body>
+        <div class='container'>
+            <h2><a href='/pages'>Fleddit</a></h2>
+            <h4>Welcome to the smallest community on the internet.</h4><br>
+            <%= yield %>
+        </div><br>
+        <% if logged_in? %>
+            <a href='/logout'>Log Out</a>
+        <% end %>
+    </body>
+</html>

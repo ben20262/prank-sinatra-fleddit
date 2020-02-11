@@ -1,0 +1,4 @@
+<% current_user.pages.each do |page| %>
+    <h3><a href="/pages/<%= page.id %>"><%= page.name %></a></h3>
+    <p><%= page.about %></p>
+<% end %>

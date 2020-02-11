@@ -1,6 +1,9 @@
-class UsersController < AppController
+class UserController < AppController
 
     get '/' do
+        if logged_in?
+            redirect "/users/#{current_user.id}"
+        end
         erb :index
     end
 
@@ -48,5 +51,4 @@ class UsersController < AppController
         @user = User.find(params[:id])
         erb :'/users/index'
     end
-
 end

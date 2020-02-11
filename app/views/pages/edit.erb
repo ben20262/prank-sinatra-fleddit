@@ -1,0 +1,6 @@
+<h3><%= @page.name %></h3>
+<form action="/pages/<%= @page.id %>" method='post'>
+    <input id='hidden' type='hidden' name='_method' value='patch'>
+    <textarea name='about'><%= @page.about %></textarea>
+    <input type='submit' value='Edit Page'>
+</form>

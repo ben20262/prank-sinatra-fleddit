@@ -33,7 +33,7 @@ class PostsController < AppController
     end
 
     patch '/pages/:page_id/posts/:post_id' do
-        
+
     end
 
     delete '/pages/:page_id/posts/:post_id' do

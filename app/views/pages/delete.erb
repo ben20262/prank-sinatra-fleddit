@@ -1,0 +1,8 @@
+<h3>Are you sure you want to delete <%= @page.name %>?</h3>
+<form action="/pages/<%= @page.id %>" method='post'>
+    <input id='hidden' type='hidden' name='_method' value='delete'>
+    <input type='submit' value='Delete'>
+</form>
+<form action="/pages/<%= @page.id %>" method='get'>
+    <input type='submit' value='Leave Page'>
+</form>

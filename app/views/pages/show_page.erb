@@ -1,0 +1,18 @@
+<h2><%= @page.name %></h2>
+<p><%= @page.about %></p><br>
+
+<% @page.posts.each do |post| %>
+    <h4><%= post.title %></h4>
+    <p><%= post.content %></p>
+<% end %>
+
+<form action="/pages/<%= @page.id %>/leave" method='get'>
+    <input type='submit' value='Leave Page'>
+</form>
+
+<% if current_user.admin || UserPage.find_by(page_id: params[:id], user_id: current_user.id).mod %>
+    <form action="/pages/<%= @page.id %>/delete" method='get'>
+        <input id='hidden' type='hidden' name='_method' value='delete'>
+        <input type='submit' value='Delete Page'>
+    </form>
+<% end %>

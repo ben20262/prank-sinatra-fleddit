@@ -1,0 +1,4 @@
+<h3>Are you sure that you want to leave <%= @page.name %>?</h3>
+<form action="/pages/<%= @page.id %>/leave" method='post'>
+    <input type='submit' value='Leave Page'>
+</form>
