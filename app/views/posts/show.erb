@@ -1,0 +1,18 @@
+<h2><a href="../../<%= @page.id %>"><%= @page.name %></a></h2>
+<h3><%= @post.title %></h3>
+<h4>Posted By: <%= @post.user.username %></h4>
+<p><%= @post.content %></p>
+
+<% if @post.user == current_user %>
+    <form action="/pages/<%= @page.id %>/posts/<%= @post.id %>" method='post'>
+        <input id='hidden' type='hidden' name='_method' value='patch'>
+        <input type='submit' value='Edit Post'>
+    </form>
+<% end %>
+
+<% if @post.user == current_user || UserPage.find_by(user_id: current_user.id, page_id: @page.id).mod %>
+    <form action="/pages/<%= @page.id %>/posts/<%= @post.id %>" method='post'>
+        <input id='hidden' type='hidden' name='_method' value='delete'>
+        <input type='submit' value='Delete Post'>
+    </form>
+<% end %>

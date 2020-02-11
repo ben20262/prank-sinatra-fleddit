@@ -1,0 +1,6 @@
+<h3>Create a post for <%= @page.name %>.</h3>
+<form action="/pages/<%= @page.id %>/posts" method='post'>
+    <h3>Title: <input type='text' name='title'></h3>
+    <textarea name='content' placeholder='Content:'></textarea>
+    <input type='submit' id='submit'>
+</form>
