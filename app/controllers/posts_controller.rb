@@ -2,7 +2,7 @@ class PostsController < AppController
 
     get '/pages/:page_id/posts/new' do
         if !logged_in?
-            redirect '/login'
+            redirect '/'
         elsif !UserPage.find_by(user_id: current_user.id, page_id: params[:page_id].to_i)
             redirect "/pages/#{params[:page_id]}/join"
         end
@@ -14,7 +14,7 @@ class PostsController < AppController
         @page = Page.find(params[:page_id])
         @post = Post.find(params[:post_id])
         if !logged_in?
-            redirect '/login'
+            redirect '/'
         elsif !UserPage.find_by(user_id: current_user.id, page_id: params[:page_id].to_i)
             redirect "/pages/#{params[:page_id]}/join"
         end
@@ -35,7 +35,7 @@ class PostsController < AppController
         @page = Page.find(params[:page_id])
         @post = Post.find(params[:post_id])
         if !logged_in?
-            redirect '/login'
+            redirect '/'
         elsif @post.user_id != current_user.id
             redirect "/pages/#{params[:page_id]}"
         end
@@ -46,18 +46,25 @@ class PostsController < AppController
         @page = Page.find(params[:page_id])
         @post = Post.find(params[:post_id])
         if !logged_in?
-            redirect '/login'
-        elsif @post.user_id != current_user.id || !UserPage.find_by(page_id: @page.id, user_id: current_user.id)
-            redirect "/pages/#{params[:page_id]}"
+            redirect '/'
+        elsif @post.user_id != current_user.id && !UserPage.find_by(page_id: @page.id, user_id: current_user.id).mod && !current_user.admin
+            redirect "/pages/#{params[:page_id]}/posts/#{params[:post_id]}"
         end
         erb :'posts/delete'
     end
 
     patch '/pages/:page_id/posts/:post_id' do
-
+        if params[:title].empty? || params[:content].empty?
+            redirect "/pages/#{params[:page_id]}/posts/#{params[:post_id]}"
+        end
+        post = Post.find(params[:post_id])
+        post.update(title: params[:title],content: params[:content])
+        redirect "/pages/#{params[:page_id]}/posts/#{params[:post_id]}"
     end
 
     delete '/pages/:page_id/posts/:post_id' do
-
+        post = Post.find(params[:post_id])
+        post.delete
+        redirect "/pages/#{params[:page_id]}"
     end
 end

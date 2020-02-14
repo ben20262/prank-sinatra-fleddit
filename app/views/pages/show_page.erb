@@ -1,5 +1,9 @@
 <h2><%= @page.name %></h2>
-<p><%= @page.about %></p><br>
+<p><%= @page.about %></p>
+<form action="/pages/<%= @page.id %>/posts/new" method='get'>
+    <input type='submit' value='Create Post'>
+</form>
+<br>
 
 <% @page.posts.each do |post| %>
     <h4><a href="/pages/<%= @page.id %>/posts/<%= post.id %>"><%= post.title %></a></h4>
@@ -8,7 +12,7 @@
 
 <form action="/pages/<%= @page.id %>/leave" method='get'>
     <input type='submit' value='Leave Page'>
-</form>
+</form><br>
 
 <% if current_user.admin || UserPage.find_by(page_id: params[:id], user_id: current_user.id).mod %>
     <form action="/pages/<%= @page.id %>/delete" method='get'>

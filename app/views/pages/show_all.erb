@@ -1,0 +1,8 @@
+<% Page.all.each do |page| %>
+    <% post = page.posts.last %>
+    <h3><a href="/pages/<%= page.id %>"><%= page.name %></a></h3>
+    <% if post != nil %>
+        <h4><a href="/pages/<%= page.id %>/posts/<%= post.id %>"><%= post.title %></a></h4>
+        <p><%= post.content %></p><br>
+    <% end %>
+<% end %>

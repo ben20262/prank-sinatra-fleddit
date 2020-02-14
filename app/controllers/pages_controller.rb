@@ -1,12 +1,15 @@
 class PagesController < AppController
 
     get '/pages' do
-        erb :'pages/index'
+        if !logged_in?
+            redirect '/'
+        end
+        erb :'/pages/show_all'
     end
 
     get '/pages/new' do
         if !logged_in?
-            redirect '/login'
+            redirect '/'
         end
         erb :'pages/new'
     end
@@ -23,8 +26,8 @@ class PagesController < AppController
     get '/pages/:id' do
         @page = Page.find(params[:id])
         if !logged_in?
-            redirect '/login'
-        elsif !current_user.pages.include?(@page)
+            redirect '/'
+        elsif !current_user.pages.include?(@page) && !current_user.admin
             redirect "/pages/#{params[:id]}/join"
         end
         erb :'/pages/show_page'
@@ -33,8 +36,8 @@ class PagesController < AppController
     get '/pages/:id/join' do
         @page = Page.find(params[:id])
         if !logged_in?
-            redirect '/login'
-        elsif current_user.pages.include?(@page)
+            redirect '/'
+        elsif current_user.pages.include?(@page) && !current_user.admin
             redirect "/pages/#{params[:id]}"
         end
         @page = Page.find(params[:id])
@@ -44,9 +47,9 @@ class PagesController < AppController
     get '/pages/:id/leave' do
         @page = Page.find(params[:id])
         if !logged_in?
-            redirect '/login'
-        elsif !current_user.pages.include?(@page)
-            redirect '/pages'
+            redirect '/'
+        elsif !current_user.pages.include?(@page) && !current_user.admin
+            redirect '/users/pages'
         end
         erb :'pages/leave'
     end
@@ -59,12 +62,12 @@ class PagesController < AppController
     post '/pages/:id/leave' do
         page = Page.find(params[:id])
         current_user.pages.delete(page)
-        redirect '/pages'
+        redirect '/users/pages'
     end
 
     get '/pages/:id/edit' do
         if !logged_in?
-            redirect '/login'
+            redirect '/'
         elsif !UserPage.find_by(page_id: params[:id], user_id: current_user.id).mod && !current_user.admin
             redirect "/pages/#{params[:id]}"
         end
@@ -74,7 +77,7 @@ class PagesController < AppController
 
     get '/pages/:id/delete' do
         if !logged_in?
-            redirect '/login'
+            redirect '/'
         elsif !UserPage.find_by(page_id: params[:id], user_id: current_user.id).mod && !current_user.admin
             redirect "/pages/#{params[:id]}"
         end
@@ -93,10 +96,7 @@ class PagesController < AppController
 
     delete '/pages/:id' do
         page = Page.find(params[:id])
-        if current_user.admin
-            page.delete
-        end
-        redirect '/pages'
+        redirect '/users/pages'
     end
 
 end

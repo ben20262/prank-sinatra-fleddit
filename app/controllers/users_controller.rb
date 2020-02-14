@@ -2,7 +2,7 @@ class UserController < AppController
 
     get '/' do
         if logged_in?
-            redirect "/users/#{current_user.id}"
+            redirect '/users/pages'
         end
         erb :index
     end
@@ -27,7 +27,7 @@ class UserController < AppController
         if logged_in?
             redirect "/users/#{current_user.id}"
         end
-        erb :'/users/login'
+        erb :'users/login'
     end
 
     post '/login' do
@@ -35,7 +35,7 @@ class UserController < AppController
 
         if user && user.authenticate(params[:password])
             session[:user_id] = user.id
-            redirect "/users/#{current_user.id}"
+            redirect '/users/pages'
         end
         redirect '/signup'
     end
@@ -44,11 +44,17 @@ class UserController < AppController
         if logged_in?
             session.delete(:user_id)
         end
-        redirect '/login'
+        redirect '/'
+    end
+
+    get '/users/pages' do
+        erb :'/users/user_pages'
     end
 
     get '/users/:id' do
         @user = User.find(params[:id])
         erb :'/users/index'
     end
+
+    
 end

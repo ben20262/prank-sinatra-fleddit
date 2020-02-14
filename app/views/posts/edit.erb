@@ -1,0 +1,8 @@
+<form action="/pages/<%= @page.id %>/posts/<%= @post.id %>" method='post'>
+    <input id='hidden' type='hidden' name='_method' value='patch'>
+    Title: <br>
+    <input type='text' name='title' value="<%= @post.title %>"><br><br>
+    Content: <br>
+    <textarea name='content'><%= @post.content %></textarea><br>
+    <input type='submit' value='Edit Post'>
+</form>

@@ -12,7 +12,7 @@ UserPage.create(user_id: 1, page_id: 3)
 UserPage.create(user_id: 2, page_id: 2, mod: 1)
 UserPage.create(user_id: 2, page_id: 3)
 UserPage.create(user_id: 3, page_id: 1)
-UserPage.create(user_id: 3, page_id: 1)
+UserPage.create(user_id: 3, page_id: 2)
 
 Post.create(title: "This", content: "Whoa this is awesome!", page_id: 3, user_id: 2)
 Post.create(title: "That", content: "So cute!", page_id: 2, user_id: 1)
