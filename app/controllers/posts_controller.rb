@@ -1,7 +1,12 @@
 class PostsController < AppController
 
     get '/pages/:page_id/posts/new' do
-        if !logged_in?
+        if params[:page_id] > Page.all.size
+            redirect '/users'
+        end
+        if current_user.id > User.all.size
+            redirect '/logout'
+        elsif !logged_in?
             redirect '/'
         elsif !UserPage.find_by(user_id: current_user.id, page_id: params[:page_id].to_i)
             redirect "/pages/#{params[:page_id]}/join"
@@ -11,9 +16,14 @@ class PostsController < AppController
     end
 
     get '/pages/:page_id/posts/:post_id' do
+        if params[:page_id] > Page.all.size || params[:post_id] > Post.all.size
+            redirect '/users'
+        end
         @page = Page.find(params[:page_id])
         @post = Post.find(params[:post_id])
-        if !logged_in?
+        if current_user.id > User.all.size
+            redirect '/logout'
+        elsif !logged_in?
             redirect '/'
         elsif !UserPage.find_by(user_id: current_user.id, page_id: params[:page_id].to_i)
             redirect "/pages/#{params[:page_id]}/join"
@@ -32,9 +42,14 @@ class PostsController < AppController
     end
 
     get '/pages/:page_id/posts/:post_id/edit' do
+        if params[:page_id] > Page.all.size || params[:post_id] > Post.all.size
+            redirect '/users'
+        end
         @page = Page.find(params[:page_id])
         @post = Post.find(params[:post_id])
-        if !logged_in?
+        if current_user.id > User.all.size
+            redirect '/logout'
+        elsif !logged_in?
             redirect '/'
         elsif @post.user_id != current_user.id
             redirect "/pages/#{params[:page_id]}"
@@ -43,9 +58,14 @@ class PostsController < AppController
     end
 
     get '/pages/:page_id/posts/:post_id/delete' do
+        if params[:page_id] > Page.all.size || params[:post_id] > Post.all.size
+            redirect '/users'
+        end
         @page = Page.find(params[:page_id])
         @post = Post.find(params[:post_id])
-        if !logged_in?
+        if current_user.id > User.all.size
+            redirect '/logout'
+        elsif !logged_in?
             redirect '/'
         elsif @post.user_id != current_user.id && !UserPage.find_by(page_id: @page.id, user_id: current_user.id).mod && !current_user.admin
             redirect "/pages/#{params[:page_id]}/posts/#{params[:post_id]}"

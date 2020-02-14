@@ -1,14 +1,18 @@
 class UserController < AppController
 
     get '/' do
-        if logged_in?
+        if current_user.id > User.all.size
+            redirect '/logout'
+        elsif logged_in?
             redirect '/users'
         end
         erb :index
     end
 
     get '/signup' do
-        if logged_in?
+        if logged_in? && current_user.id > User.all.size
+            redirect '/logout'
+        elsif logged_in?
             redirect "/users/#{current_user.id}"
         end
         erb :'users/signup'
@@ -24,7 +28,9 @@ class UserController < AppController
     end
 
     get '/login' do
-        if logged_in?
+        if current_user.id > User.all.size
+            redirect '/logout'
+        elsif logged_in?
             redirect "/users"
         end
         erb :'users/login'
@@ -48,14 +54,18 @@ class UserController < AppController
     end
 
     get '/users' do
-        if !logged_in?
+        if current_user.id > User.all.size
+            redirect '/logout'
+        elsif !logged_in?
             redirect '/'
         end
         erb :'/users/user_pages'
     end
 
     get '/users/:id' do
-        if !logged_in?
+        if params[:id] > User.all.size
+            redirect '/users'
+        elsif !logged_in?
             redirect '/'
         end
         @user = User.find(params[:id])
