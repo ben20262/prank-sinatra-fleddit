@@ -1,4 +1,4 @@
-<h2>Welcome <%= @user.username %>!</h2>
+<h2>Welcome to <%= @user.username %>'s posts!</h2>
 <% @user.posts.each do |post| %>
     <h4><a href="/pages/<%= post.page_id %>/posts/<%= post.id %>"><%= post.title %></a></h4>
     <p><%= post.content %></p>

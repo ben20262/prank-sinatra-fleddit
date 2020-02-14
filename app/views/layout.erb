@@ -9,7 +9,7 @@
             <% if !logged_in? %>
                 <h4>Welcome to the smallest community on the internet.</h4><br>
             <% else %>
-                <a href="/users/pages">Your Pages</a>
+                <a href="/users">Your Pages</a>
                 <a href="/users/<%= current_user.id %>">Your Posts</a>
                 <a href='/pages/new'>Create a Page</a>
             <% end %>

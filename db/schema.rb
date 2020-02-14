@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 2020_02_10_000032) do
     t.text "content"
     t.integer "page_id"
     t.integer "user_id"
-    t.integer "upvote"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
