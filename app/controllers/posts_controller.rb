@@ -1,7 +1,7 @@
 class PostsController < AppController
 
     get '/pages/:page_id/posts/new' do
-        if params[:page_id] > Page.all.size
+        if params[:page_id].to_i > Page.all.size
             redirect '/users'
         elsif current_user.id > User.all.size
             redirect '/logout'
@@ -15,7 +15,7 @@ class PostsController < AppController
     end
 
     get '/pages/:page_id/posts/:post_id' do
-        if params[:page_id] > Page.all.size || params[:post_id] > Post.all.size
+        if params[:page_id].to_i > Page.all.size || params[:post_id].to_i > Post.all.size
             redirect '/users'
         end
         @page = Page.find(params[:page_id])
@@ -41,7 +41,7 @@ class PostsController < AppController
     end
 
     get '/pages/:page_id/posts/:post_id/edit' do
-        if params[:page_id] > Page.all.size || params[:post_id] > Post.all.size
+        if params[:page_id].to_i > Page.all.size || params[:post_id].to_i > Post.all.size
             redirect '/users'
         end
         @page = Page.find(params[:page_id])
@@ -57,7 +57,7 @@ class PostsController < AppController
     end
 
     get '/pages/:page_id/posts/:post_id/delete' do
-        if params[:page_id] > Page.all.size || params[:post_id] > Post.all.size
+        if params[:page_id].to_i > Page.all.size || params[:post_id].to_i > Post.all.size
             redirect '/users'
         end
         @page = Page.find(params[:page_id])
@@ -77,7 +77,7 @@ class PostsController < AppController
             redirect "/pages/#{params[:page_id]}/posts/#{params[:post_id]}"
         end
         post = Post.find(params[:post_id])
-        post.update(title: params[:title],content: params[:content])
+        post.update(title: params[:title], content: params[:content])
         redirect "/pages/#{params[:page_id]}/posts/#{params[:post_id]}"
     end
 

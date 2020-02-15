@@ -63,7 +63,7 @@ class UserController < AppController
     end
 
     get '/users/:id' do
-        if params[:id] > User.all.size
+        if params[:id].to_i > User.all.size
             redirect '/users'
         elsif !logged_in?
             redirect '/'

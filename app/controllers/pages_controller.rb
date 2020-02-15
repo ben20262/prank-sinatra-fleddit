@@ -28,7 +28,7 @@ class PagesController < AppController
     end
 
     get '/pages/:id' do
-        if params[:page_id] > Page.all.size
+        if params[:page_id].to_i > Page.all.size
             redirect '/users'
         end
         @page = Page.find(params[:id])
@@ -43,7 +43,7 @@ class PagesController < AppController
     end
 
     get '/pages/:id/join' do
-        if params[:page_id] > Page.all.size
+        if params[:page_id].to_i > Page.all.size
             redirect '/users'
         end
         @page = Page.find(params[:id])
@@ -59,7 +59,7 @@ class PagesController < AppController
     end
 
     get '/pages/:id/leave' do
-        if params[:page_id] > Page.all.size
+        if params[:page_id].to_i > Page.all.size
             redirect '/users'
         end
         @page = Page.find(params[:id])
@@ -87,7 +87,7 @@ class PagesController < AppController
     get '/pages/:id/edit' do
         if logged_in? && current_user.id > User.all.size
             redirect '/logout'
-        elsif params[:page_id] > Page.all.size
+        elsif params[:page_id].to_i > Page.all.size
             redirect '/users'
         elsif !logged_in?
             redirect '/'
@@ -103,7 +103,7 @@ class PagesController < AppController
             redirect '/logout'
         elsif !logged_in?
             redirect '/'
-        elsif params[:page_id] > Page.all.size
+        elsif params[:page_id].to_i > Page.all.size
             redirect '/users'
         elsif !UserPage.find_by(page_id: params[:id], user_id: current_user.id).mod && !current_user.admin
             redirect "/pages/#{params[:id]}"
