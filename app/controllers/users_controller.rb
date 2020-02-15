@@ -1,7 +1,7 @@
 class UserController < AppController
 
     get '/' do
-        if current_user.id > User.all.size
+        if logged_in? && current_user.id > User.all.size
             redirect '/logout'
         elsif logged_in?
             redirect '/users'
@@ -28,7 +28,7 @@ class UserController < AppController
     end
 
     get '/login' do
-        if current_user.id > User.all.size
+        if logged_in? && current_user.id > User.all.size
             redirect '/logout'
         elsif logged_in?
             redirect "/users"
@@ -54,7 +54,7 @@ class UserController < AppController
     end
 
     get '/users' do
-        if current_user.id > User.all.size
+        if logged_in? && current_user.id > User.all.size
             redirect '/logout'
         elsif !logged_in?
             redirect '/'

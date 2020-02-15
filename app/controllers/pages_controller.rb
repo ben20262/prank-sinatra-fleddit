@@ -1,7 +1,7 @@
 class PagesController < AppController
 
     get '/pages' do
-        if current_user.id > User.all.size
+        if logged_in? && current_user.id > User.all.size
             redirect '/logout'
         elsif !logged_in?
             redirect '/'
@@ -10,7 +10,7 @@ class PagesController < AppController
     end
 
     get '/pages/new' do
-        if current_user.id > User.all.size
+        if logged_in? && current_user.id > User.all.size
             redirect '/logout'
         elsif !logged_in?
             redirect '/'
@@ -32,7 +32,7 @@ class PagesController < AppController
             redirect '/users'
         end
         @page = Page.find(params[:id])
-        if current_user.id > User.all.size
+        if logged_in? && current_user.id > User.all.size
             redirect '/logout'
         elsif !logged_in?
             redirect '/'
@@ -47,7 +47,7 @@ class PagesController < AppController
             redirect '/users'
         end
         @page = Page.find(params[:id])
-        if current_user.id > User.all.size
+        if logged_in? && current_user.id > User.all.size
             redirect '/logout'
         elsif !logged_in?
             redirect '/'
@@ -63,7 +63,7 @@ class PagesController < AppController
             redirect '/users'
         end
         @page = Page.find(params[:id])
-        if current_user.id > User.all.size
+        if logged_in? && current_user.id > User.all.size
             redirect '/logout'
         elsif !logged_in?
             redirect '/'
@@ -85,7 +85,7 @@ class PagesController < AppController
     end
 
     get '/pages/:id/edit' do
-        if current_user.id > User.all.size
+        if logged_in? && current_user.id > User.all.size
             redirect '/logout'
         elsif params[:page_id] > Page.all.size
             redirect '/users'
@@ -99,7 +99,7 @@ class PagesController < AppController
     end
 
     get '/pages/:id/delete' do
-        if current_user.id > User.all.size
+        if logged_in? && current_user.id > User.all.size
             redirect '/logout'
         elsif !logged_in?
             redirect '/'

@@ -3,8 +3,7 @@ class PostsController < AppController
     get '/pages/:page_id/posts/new' do
         if params[:page_id] > Page.all.size
             redirect '/users'
-        end
-        if current_user.id > User.all.size
+        elsif current_user.id > User.all.size
             redirect '/logout'
         elsif !logged_in?
             redirect '/'
@@ -21,7 +20,7 @@ class PostsController < AppController
         end
         @page = Page.find(params[:page_id])
         @post = Post.find(params[:post_id])
-        if current_user.id > User.all.size
+        if logged_in? && current_user.id > User.all.size
             redirect '/logout'
         elsif !logged_in?
             redirect '/'
@@ -47,7 +46,7 @@ class PostsController < AppController
         end
         @page = Page.find(params[:page_id])
         @post = Post.find(params[:post_id])
-        if current_user.id > User.all.size
+        if logged_in? && current_user.id > User.all.size
             redirect '/logout'
         elsif !logged_in?
             redirect '/'
@@ -63,7 +62,7 @@ class PostsController < AppController
         end
         @page = Page.find(params[:page_id])
         @post = Post.find(params[:post_id])
-        if current_user.id > User.all.size
+        if logged_in? && current_user.id > User.all.size
             redirect '/logout'
         elsif !logged_in?
             redirect '/'
