@@ -1,18 +1,29 @@
 <!doctype html>
 <html>
     <head>
-    <title>Fleddit - Fun for all ages!</title>
+        <title>Fleddit - Fun for all ages!</title>
+        <style>
+            header > h1 a { font-style: italic; }
+            header { background: white; border: 3px solid; }
+            a {color: black;}
+            textarea:focus, input[name]:focus {background: rgba(255, 253, 112, 0.5)}
+            body { background: rgba(200, 200, 200, 1); }
+        </style>
     </head>
     <body>
-        <div class='container'>
-            <h2><a href='/pages'>Fleddit</a></h2>
+        <header>
+            <h1><a href='/pages' id='header'><center>Fleddit</center></a></h1>
             <% if !logged_in? %>
                 <h4>Welcome to the smallest community on the internet.</h4><br>
             <% else %>
-                <a href="/users">Your Pages</a>
-                <a href="/users/<%= current_user.id %>">Your Posts</a>
-                <a href='/pages/new'>Create a Page</a>
+                <center>
+                    <a href="/users">Your Pages</a>
+                    <a href="/users/<%= current_user.id %>">Your Posts</a>
+                    <a href='/pages/new'>Create a Page</a>
+                </center>
             <% end %>
+        </header>
+        <div class='container'>
             <%= yield %>
         </div><br><br>
         <% if logged_in? %>
