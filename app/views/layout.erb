@@ -3,7 +3,7 @@
     <head>
         <title>Fleddit - Fun for all ages!</title>
         <style>
-            header > h1 a { font-style: italic; }
+            h1 a { font-style: oblique 10deg; }
             header { background: white; border: 3px solid; }
             a {color: black;}
             textarea:focus, input[name]:focus {background: rgba(255, 253, 112, 0.5)}
@@ -11,18 +11,16 @@
         </style>
     </head>
     <body>
-        <header>
-            <h1><a href='/pages' id='header'><center>Fleddit</center></a></h1>
+        <header><center>
+            <h1><a href='/pages' id='header'>Fleddit</a></h1>
             <% if !logged_in? %>
                 <h4>Welcome to the smallest community on the internet.</h4><br>
             <% else %>
-                <center>
                     <a href="/users">Your Pages</a>
                     <a href="/users/<%= current_user.id %>">Your Posts</a>
                     <a href='/pages/new'>Create a Page</a>
-                </center>
             <% end %>
-        </header>
+        </center></header>
         <div class='container'>
             <%= yield %>
         </div><br><br>
